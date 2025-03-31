@@ -1,0 +1,10 @@
+# 忽略配置文件
+.env
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+bulelog-master/
+
+logs/*.log
