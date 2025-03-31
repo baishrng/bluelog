@@ -5,13 +5,14 @@ from flask_wtf.csrf import CSRFError
 from flask_login import current_user
 import logging
 from logging.handlers import RotatingFileHandler, SMTPHandler
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from blueprints.auth import bp as auth_bp
 from blueprints.blog import bp as blog_bp
 from blueprints.admin import bp as admin_bp
 from config import config
 from extensions import (bootstrap, db, moment, ckeditor, mail, login_manager,
-                        csrf, migrate, toolbar, cache, sslify)
+                        csrf, migrate, toolbar, cache)
 from models import AdminModel, CategoryModel, CommentModel
 
 
@@ -29,6 +30,8 @@ def create_app(config_name:str=None):
     register_errors(app)    # 注册错误处理函数
     register_shell_context(app) # 注册shell上下文处理函数
     register_template_context(app)  # 注册模板上下文处理函数
+
+    app.wsgi_app = ProxyFix(app.wsgi_app)
 
     return app
 
@@ -51,7 +54,7 @@ def register_logging(app:Flask):
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
     # 文件路径, 最大文件尺寸, 备份数量
-    file_handler = RotatingFileHandler('logs/bluelog.log', maxBytes=10 * 1024 * 1024, backupCount=10)
+    file_handler = RotatingFileHandler('../logs/bluelog.log', maxBytes=10 * 1024 * 1024, backupCount=10)
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.INFO)
 
@@ -80,7 +83,7 @@ def register_extensions(app:Flask):
     migrate.init_app(app, db)
     toolbar.init_app(app)
     cache.init_app(app)
-    sslify.init_app(app)
+    # sslify.init_app(app)
 
 def register_blueprints(app:Flask):
     app.register_blueprint(blog_bp, url_prefix='/')

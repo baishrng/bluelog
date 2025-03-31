@@ -11,7 +11,7 @@ from flask import render_template, flash, redirect, url_for, request, current_ap
 from flask_login import login_required, current_user
 from flask_ckeditor import upload_success, upload_fail
 
-from extensions import db
+from ..extensions import db
 from ..forms import SettingForm, PostForm, CategoryForm, LinkForm
 from ..models import Post, Category, Comment, Link
 from ..utils import redirect_back, allowed_file

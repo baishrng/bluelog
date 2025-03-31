@@ -19,7 +19,7 @@ csrf = CSRFProtect()
 migrate = Migrate()
 toolbar = DebugToolbarExtension()   # 调试程序
 cache = Cache()     # 缓存
-sslify = SSLify()   # SSL 转发功能
+# sslify = SSLify()   # SSL 转发功能
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login' # 未登录则会重定向到登录界面
