@@ -54,7 +54,7 @@ def register_logging(app:Flask):
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
     # 文件路径, 最大文件尺寸, 备份数量
-    file_handler = RotatingFileHandler('../logs/bluelog.log', maxBytes=10 * 1024 * 1024, backupCount=10)
+    file_handler = RotatingFileHandler('logs/bluelog.log', maxBytes=10 * 1024 * 1024, backupCount=10)
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.INFO)
 
