@@ -79,7 +79,7 @@ def show_post(post_id):
             send_new_comment_email(post)    # 发送邮件提醒管理员
         return redirect(url_for(".show_post", post_id=post.id))
 
-    return render_template('blog/post.html', post=post, pagination=pagination, comments=comments)
+    return render_template('blog/post.html', post=post, pagination=pagination, comments=comments, form=form)
 
 @bp.route('/reply/comment/<int:comment_id>')
 def reply_comment(comment_id):
